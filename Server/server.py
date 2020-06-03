@@ -15,13 +15,19 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
 
         host = socket.gethostname()
         ip = socket.gethostbyname(host)
-        self.send_response(200)
-        self.send_header('Hello','BasicHTTP!')
-        self.send_header('Content-Lengt','13')
-        self.send_header('Content-Type', 'text/plain; charset=utf-8')
-        self.end_headers()
-        address = ip.encode()
-        self.wfile.write(address)
+        if parsed_path.path == "/hi":
+            
+            self.send_response(200)
+            self.send_header('Hello','BasicHTTP!')
+            self.send_header('Content-Lengt','13')
+            self.send_header('Content-Type', 'text/plain; charset=utf-8')
+            self.end_headers()
+            address = ip.encode()
+            self.wfile.write(address)
+        else:
+            self.send_header('Not page','Prease retry HTTP.')
+            self.end_headers()
+        
 
     def do_POST(self):
         print('path = {}'.format(self.path))
